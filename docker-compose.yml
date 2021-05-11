@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+    redis:
+        image: redis
+        container_name: redis
+        ports: ["6379"]
+        restart: always
+        networks:
+        - front_tier
+    postgres:
+        image: postgres
+        container_name: postgres
+        environment:
+        - POSTGRES_PASSWORD=12345678
+        - POSTGRES_USER=mychatappuser
+        - POSTGRES_DB=mychatappdb
+        restart: always
+        networks:
+        - back_tier
+        volumes:
+        - "db-data:/var/lib/postgresql/data"
+    django:
+        image: django:v0
+        container_name: django-server
+        depends_on:
+            - "redis"
+            - "postgres"
+        ports:
+        - "9000:9000"
+        networks:
+        - front_tier
+        - back_tier
+        restart: always
+        environment:
+        - DB_HOST=postgres
+        - REDIS_HOST=redis
+volumes:
+    db-data:
+networks:
+    front_tier:
+    back_tier:
+
+
+
+
+
+
+
+    

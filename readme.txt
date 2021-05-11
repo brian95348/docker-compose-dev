@@ -1,0 +1,1 @@
+first build a docker image using this Dockerfile, then tag it django:v0
