@@ -9,4 +9,4 @@ djangorestframework-guardian==0.3.0
 Pillow==8.0.1
 psycopg2-binary==2.8.6
 selenium==3.141.0
-
+gunicorn==20.1.0
